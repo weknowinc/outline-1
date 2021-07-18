@@ -34,7 +34,7 @@
   },
   "include": [
     "./src/components/**/*.ts",
-    "./src/components/**/test/*",
+    "./src/components/**/*/*.test.ts",
     "./src/imports.d.ts"
   ],
   "exclude": [
