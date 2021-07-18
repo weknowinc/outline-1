@@ -1,4 +1,4 @@
-import { html, TemplateResult } from 'lit';
+import { html, TemplateResult } from 'lit-html';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { argTypeHidden } from '../outline-element/utils/utils';
 import sampleImage1 from '../../../.storybook/static/media/color/Codeworkbench_color.jpg';
