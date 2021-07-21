@@ -1,0 +1,90 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { html } from 'lit';
+import { OutlineAlert, alertStatusTypes } from './outline-alert'
+
+<Meta
+  title="Molecules/Alert"
+  component="outline-alert"
+  argTypes={{
+    statusType: {
+      name: 'Status Type',
+      description:
+        'The status type of the alert. Such as `information` or `warning`.',
+      options: alertStatusTypes,
+      control: { type: 'select' },
+    },
+  }}
+  args={{
+    statusType: 'warning',
+  }}
+/>
+
+export const Template = ({
+  statusType,
+  defaultSlot,
+}) => html`
+  <outline-alert
+    statusType="${statusType}"
+  >
+    ${defaultSlot}
+  </outline-alert>
+`;
+
+## Default
+
+This is pretty simple and only has a default slot and default status type for stories of `warning`
+
+The default status type was set in the `Meta` `args` configuration.
+
+```jsx
+<Meta
+  title="Molecules/Alert"
+  component="outline-alert"
+  args={{
+    statusType: 'warning',
+  }}
+/>
+```
+
+<Canvas>
+  <Story
+    name="Default Example"
+    args={{
+      defaultSlot: html`<p>Example message.</p>`,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Error
+
+We set our `statusType` attribute to `error` here.
+
+<Canvas>
+  <Story
+    name="Error"
+    args={{
+      statusType: 'error',
+      defaultSlot: html`<p>Example message.</p>`,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Story without template
+
+This is potentially simpler, but doesn't support controls.
+
+<Canvas>
+  <Story
+    name="No Template"
+  >
+    {html`
+      <outline-alert>
+        Hello world
+      </outline-alert>
+    `}
+  </Story>
+</Canvas>
