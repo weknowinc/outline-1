@@ -26,7 +26,7 @@ export default {
     },
     {
       // Legacy bundle.
-      dir: 'dist.js',
+      dir: 'dist',
       format: 'cjs',
       manualChunks: () => { return 'outline-legacy.js' },
     },
