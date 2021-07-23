@@ -8,17 +8,27 @@ import svg from 'rollup-plugin-svg';
 
 export default {
   // Output all components to a single exported file.
-  input: 'src/components/**/*[!(stories|lit)].ts',
+  input: {
+    include: [
+      'src/components/**/*.ts',
+    ],
+    exclude: [
+      'src/components/**/*.stories.ts',
+      'src/components/**/*.css.lit.ts',
+    ],
+  },
   output: [
     {
       // Modern bundle.
-      file: 'dist/outline.js',
+      dir: 'dist',
       format: 'esm',
+      manualChunks: () => { return 'outline.js' },
     },
     {
       // Legacy bundle.
-      file: 'dist/outline-legacy.js',
+      dir: 'dist.js',
       format: 'cjs',
+      manualChunks: () => { return 'outline-legacy.js' },
     },
   ],
   onwarn(warning) {
