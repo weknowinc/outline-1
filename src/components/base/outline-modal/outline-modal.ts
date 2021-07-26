@@ -8,6 +8,14 @@ export type ModalSize = 'small' | 'medium' | 'full-screen';
 
 export const modalSizes: ModalSize[] = ['small', 'medium', 'full-screen'];
 
+// This can be useful when using automated testing to know how we should be able to interact with the rendered element.
+export interface OutlineModalElementType extends HTMLElement {
+  close: () => void;
+  open: () => void;
+  size?: ModalSize | undefined;
+  isOpen: Boolean;
+}
+
 // See https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus.
 // @todo make this re-usable across components?
 const focusableElementSelector = `
@@ -31,7 +39,10 @@ const focusableElementSelector = `
  * @slot outline-modal--accessibility-description - The accessibility description which is used by screen readers.
  */
 @customElement('outline-modal')
-export class OutlineModal extends OutlineElement {
+export class OutlineModal
+  extends OutlineElement
+  implements OutlineModalElementType
+{
   static styles: CSSResultGroup = [componentStyles];
 
   render(): TemplateResult {
