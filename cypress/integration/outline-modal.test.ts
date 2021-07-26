@@ -11,11 +11,12 @@ describe('Outline Modal', () => {
   });
 
   it('Default slot (message) before and after opening modal.', () => {
-    const defaultSlottedElements = cy.get('outline-modal > :not("[slot]")');
+    // Assigning the results of `cy.get()` seems to result in changes as we use other selectors.
+    const defaultSlottedElementsSelector = 'outline-modal > :not("[slot]")';
 
     // If we use a cy.* method, we will let Cypress retry the `expect` a few times.
     // This is helpful because we wait for the element to render.
-    defaultSlottedElements.should($messageElements => {
+    cy.get(defaultSlottedElementsSelector).should($messageElements => {
       expect(
         $messageElements.length,
         'Elements in the default slot'
@@ -29,7 +30,7 @@ describe('Outline Modal', () => {
 
     cy.get('[slot="outline-modal--trigger"]').click();
 
-    defaultSlottedElements.should($messageElements => {
+    cy.get(defaultSlottedElementsSelector).should($messageElements => {
       $messageElements.each(function () {
         expect(
           this.assignedSlot,
@@ -38,15 +39,9 @@ describe('Outline Modal', () => {
       });
     });
 
-    cy.get('outline-modal').should($modal => {
-      const modalElement = $modal[0] as OutlineModalElementType;
+    cy.get('outline-modal').shadow().get('body').type('{esc}');
 
-      if ('close' in modalElement) {
-        modalElement.close();
-      }
-    });
-
-    defaultSlottedElements.should($messageElements => {
+    cy.get(defaultSlottedElementsSelector).should($messageElements => {
       $messageElements.each(function () {
         expect(this.assignedSlot, 'Message is no longer slotted.').is.null;
       });
