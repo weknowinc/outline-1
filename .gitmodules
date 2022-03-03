@@ -1,0 +1,4 @@
+[submodule "src/components/wk"]
+	path = src/components/wk
+	url = git@github.com:weknowinc/webcomponents_wk_handson.git
+	branch = main
